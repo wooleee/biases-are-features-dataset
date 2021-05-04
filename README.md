@@ -11,6 +11,7 @@
         +-- trimaps
              +-- {}.png
         +-- xmls
+             +-- {}.xml
         +-- list.txt
         +-- README
         +-- test.txt
@@ -61,6 +62,8 @@ There are four augmentations. Detailed explanation and the name of function are 
 
 ## 3.3. txtr: Texture를 뽑는 과정
   - Bounding Box x, y, w, h라고 하면, x, y, 0.5w, 0.5h Box로 Crop하는 과정
+  - 만약 대응하는 xml이 없으면(간혹 있음) bounding box는 그냥 (0, 0, w, h)라고 고려
+  - 원 이미지와 같은 w, h 갖도록 resize 하도록 구현
   - func: to_txtr()  <br>
 
 ![](/assets/sample_txtr.jpg)<br>

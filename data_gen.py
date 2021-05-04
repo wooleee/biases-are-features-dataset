@@ -4,12 +4,12 @@ import shutil
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-
+import xmltodict
 
 root_directory = os.path.join(os.getcwd()) # '/Users/Username/dataset'
 images_directory = os.path.join(root_directory, "images")
 masks_directory = os.path.join(root_directory, "annotations", "trimaps")
-
+xml_directory = os.path.join(root_directory, "annotations", "xmls")
 # Dir_name 
 # [GREY]Grey Scale - rgb2gray
 # [SILO]실루엣 - 고양이 흰색 그외 검정색
@@ -46,7 +46,7 @@ def to_silo(images_filenames, images_directory, target_directory):
             silouetted = preprocess_mask_silo(mask)    
             cv2.imwrite(os.path.join(target_directory , image_filename), silouetted)
 
-# to_silo(correct_images_filenames, images_directory, os.path.join(root_directory, "images_silo"))
+
 
 """## BACK"""
 
@@ -66,7 +66,7 @@ def to_back(images_filenames, images_directory, target_directory):
             background_only = cv2.bitwise_and(image, image, mask = mask)
             cv2.imwrite(os.path.join(target_directory , image_filename), background_only)
 
-# to_back(correct_images_filenames, images_directory, os.path.join(root_directory, "images_back"))
+
 
 """## GREY"""
 
@@ -78,51 +78,50 @@ def to_grey(images_filenames, images_directory, target_directory):
             grey_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             cv2.imwrite(os.path.join(target_directory , image_filename), grey_image)
 
-# to_grey(correct_images_filenames, images_directory, os.path.join(root_directory, "images_grey"))
+
 
 """## TXTR"""
 
-def preprocess_mask_txtr(mask):
-    mask = mask.astype(np.uint8)
-    mask[(mask == 2.0) | (mask == 3.0)] = 0.0
-    mask[mask == 1.0] = 255
-    return mask
+def get_bb(image_filename):
+    '''
+    About: Finding Bounding Box for each image, using xml file. If no xml file found, just return zeros.
+    Input: Image_filename
+    Output: xmin, ymin, xmax, ymax (location of bb)
+    '''
+    xml_dir = os.path.join(xml_directory, image_filename.replace(".jpg", ".xml"))
+    try:
+        f = open(xml_dir)
+        doc = xmltodict.parse(f.read()) 
+        xmin = int(doc['annotation']['object']['bndbox']['xmin'])
+        ymin = int(doc['annotation']['object']['bndbox']['ymin'])
+        xmax = int(doc['annotation']['object']['bndbox']['xmax'])
+        ymax = int(doc['annotation']['object']['bndbox']['ymax'])
+
+    except:
+        xmin, ymin, xmax, ymax = 0,0,0,0
+
+    return xmin, ymin, xmax, ymax
 
 def to_txtr(images_filenames, images_directory, target_directory):
     for i, image_filename in enumerate(images_filenames):
         extension = os.path.splitext(image_filename)[1] # find extension to exclue '.mat'
         if (extension == '.jpg'):
             image = cv2.imread(os.path.join(images_directory, image_filename))
-            mask = cv2.imread(os.path.join(masks_directory, image_filename.replace(".jpg", ".png")), cv2.IMREAD_UNCHANGED,)
-        _,thresh = cv2.threshold(mask,1,255,0)
-        contours, _ = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE) # contours: (1, 4, 1, 2)
-        bbs = []
-        for contour in contours:
-            bb = cv2.boundingRect(contour)
-            bbs.append(bb)
+            w, h = image.shape[0], image.shape[1]
+            xmin, ymin, xmax, ymax = get_bb(image_filename)
+            
+        if xmin == 0 and ymin == 0 and xmax == 0 and ymax == 0:
+            xmax = w
+            ymax = h
 
-        # bbs 맨뒤의 요소: 이미지 전체 박스 지칭 (0,0,w,h)
-        # bbs 맨뒤에서 두번째 요소: Mask 지칭
-        
-        if len(bbs) > 1:
-            x,y,w,h = bbs[-2]
-            if not w > 50 or h > 50: # 이미지 bb가 지극히 작아서 (= 너비와 높이가 50픽셀도 안되어서) BB를 Crop하면 texture는 커녕 점의 형태에 가까운 이미지를 Return합니다. 이럴경우 그냥 이미지 전체에 가운데 1/2만 뽑아내도록 구현했습니다.
-                x,y,w,h = bbs[-1]
-                x += int(w/4)
-                y += int(h/4)
-                w = int(w/2)
-                h = int(h/2)
-
-        else:
-            x,y,w,h = bbs[-1]
-
-        txtred_image = image[y + int(h/4): y + int(3*h/4), x + int(w/4): x + int(3*w/4)]
+        txtred_image = image[ymin + int((ymax-ymin)/4): ymax - int((ymax-ymin)/4),\
+                         xmin + int((xmax-xmin)/4): xmax - int((xmax-xmin)/4)]
+        txtred_image = cv2.resize(txtred_image, dsize = (h, w), interpolation = cv2.INTER_LINEAR)
         cv2.imwrite(os.path.join(target_directory , image_filename), txtred_image)
 
-# to_txtr(correct_images_filenames, images_directory, os.path.join(root_directory, "images_txtr"))
 
 if __name__ == "__main__":
-    print('--- Image Generation Start ---')
+    print('-------- Image Generation Start --------')
 
     to_grey(correct_images_filenames, images_directory, os.path.join(root_directory, "images_grey"))
     print('-- Greyscaled Image Generation Done')
@@ -136,4 +135,4 @@ if __name__ == "__main__":
     to_txtr(correct_images_filenames, images_directory, os.path.join(root_directory, "images_txtr"))
     print('-- Texture Only Image Generation Done')
 
-    print('--- Image Generation Done ---')
+    print('-------- Image Generation Done --------')
