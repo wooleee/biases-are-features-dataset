@@ -77,24 +77,24 @@ There are four augmentations. Detailed explanation and the name of function are 
 
 ## B3.0. original: 
 
-![](/assets/afhq/original.jpg) <br>
+![](../assets/afhq/original.jpg) <br>
 
 ## B3.1. grey
   - func: to_grey() <br>
-![](/assets/afhq/grey.jpg) <br>
+![](../assets/afhq/grey.jpg) <br>
 
 ## B3.2. edge
   - 모양부분을 스케치로 그리는 듯 edge를 뽑아냈다.
   - func: to_edge() <br>
 
-![](/assets/afhq/edge.jpg) <br>
+![](../assets/afhq/edge.jpg) <br>
 
 ## B3.3. part
   - 눈 부분을 뽑았다. x(가로)방향으로는 xmin + 1/4h ~ xmax - 1/4h, y(세로)방향으로는 ymin + 5/12h ~ ymax - 5/12h를 추출하였다.
   - 기존 이미지의 (w, h)를 갖도록 resize하였다.
   - func: to_part() <br>
 
-![](/assets/afhq/part.jpg) <br>
+![](../assets/afhq/part.jpg) <br>
 
 
 ## B3.4. txtr: Texture를 뽑는 과정
@@ -102,7 +102,7 @@ There are four augmentations. Detailed explanation and the name of function are 
   - 기존 이미지의 (w, h)를 갖도록 resize하였다.
   - func: to_txtr()  <br>
 
-!![](/assets/afhq/txtr.jpg) <br>
+!![](../assets/afhq/txtr.jpg) <br>
 
 # References
 Official: 
