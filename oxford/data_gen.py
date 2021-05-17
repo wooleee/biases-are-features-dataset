@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xmltodict
 
-root_directory = os.path.join(os.getcwd()) # '/Users/Username/dataset'
-images_directory = os.path.join(root_directory, "images")
+root_directory = os.path.join(os.getcwd()) # '/Users/Username/dataset/oxford'
+print(root_directory)
+images_directory = os.path.join(root_directory,  "images")
 masks_directory = os.path.join(root_directory, "annotations", "trimaps")
-xml_directory = os.path.join(root_directory, "annotations", "xmls")
+xml_directory = os.path.join(root_directory,  "annotations", "xmls")
 # Dir_name 
 # [GREY]Grey Scale - rgb2gray
 # [SILO]실루엣 - 고양이 흰색 그외 검정색
