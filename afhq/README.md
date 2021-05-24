@@ -80,24 +80,24 @@ There are four augmentations. Detailed explanation and the name of function are 
 
 ## B3.0. original: 
 
-![](../assets/afhq/original.jpg) <br>
+![](../assets/afhq/original_.jpg) <br>
 
 ## B3.1. grey 
   - func: to_grey() <br>
  
-![](../assets/afhq/grey.jpg) <br>
+![](../assets/afhq/grey_.jpg) <br>
 
 ## B3.2. edge
   - 모양부분 스케치 그리듯 edge
   - func: to_edge() <br>
 
-![](../assets/afhq/edge.jpg) <br>
+![](../assets/afhq/edge_.jpg) <br>
 
 ## B3.3. txtr
   - 동물의 피부 부분
   - func: to_txtr() <br>
 
-![](../assets/afhq/txtr.jpg) <br>
+![](../assets/afhq/txtr_.jpg) <br>
 
 ## B3.4. ear
   - 왼쪽 귀(왼쪽 추출 불가능 할 경우 오른쪽)
