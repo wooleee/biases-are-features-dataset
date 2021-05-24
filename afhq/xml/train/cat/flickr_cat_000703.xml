@@ -1,0 +1,26 @@
+<annotation>
+	<folder>cat</folder>
+	<filename>flickr_cat_000703.jpg</filename>
+	<path>/Users/woolee/biases-are-features-dataset/afhq/data/afhq/train/cat/flickr_cat_000703.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>t</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>151</xmin>
+			<ymin>130</ymin>
+			<xmax>364</xmax>
+			<ymax>237</ymax>
+		</bndbox>
+	</object>
+</annotation>

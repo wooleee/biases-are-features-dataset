@@ -1,0 +1,26 @@
+<annotation>
+	<folder>dog</folder>
+	<filename>pixabay_dog_002245.jpg</filename>
+	<path>/Users/woolee/biases-are-features-dataset/afhq/data/afhq/val/dog/pixabay_dog_002245.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>nose</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>158</xmin>
+			<ymin>223</ymin>
+			<xmax>253</xmax>
+			<ymax>288</ymax>
+		</bndbox>
+	</object>
+</annotation>

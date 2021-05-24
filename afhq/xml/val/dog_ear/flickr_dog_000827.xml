@@ -1,0 +1,26 @@
+<annotation>
+	<folder>dog</folder>
+	<filename>flickr_dog_000827.jpg</filename>
+	<path>/Users/woolee/biases-are-features-dataset/afhq/data/afhq/val/dog/flickr_dog_000827.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>ear</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>37</xmin>
+			<ymin>1</ymin>
+			<xmax>174</xmax>
+			<ymax>121</ymax>
+		</bndbox>
+	</object>
+</annotation>

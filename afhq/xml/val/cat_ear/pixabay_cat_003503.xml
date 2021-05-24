@@ -1,0 +1,26 @@
+<annotation>
+	<folder>cat</folder>
+	<filename>pixabay_cat_003503.jpg</filename>
+	<path>/Users/woolee/biases-are-features-dataset/afhq/data/afhq/val/cat/pixabay_cat_003503.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>512</width>
+		<height>512</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>ear</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>3</ymin>
+			<xmax>140</xmax>
+			<ymax>113</ymax>
+		</bndbox>
+	</object>
+</annotation>

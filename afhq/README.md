@@ -34,16 +34,7 @@
                 +-- cat
                 +-- dog
                 +-- wild   
-        +-- date_part
-            +-- train
-                +-- cat
-                +-- dog
-                +-- wild
-            +-- val
-                +-- cat
-                +-- dog
-                +-- wild
-        +-- date_txtr
+        +-- data_txtr
             +-- train
                 +-- cat
                 +-- dog
@@ -52,7 +43,19 @@
                 +-- cat
                 +-- dog
                 +-- wild   
-        +-- data_gen_afhq.py
+        
+        +-- xml
+            +-- train
+            +-- val
+                +-- cat_ear
+                +-- cat_eye
+                +-- cat_nose
+                +-- cat_txtr
+                +-- dog_ear
+                +-- dog_eye
+                +-- dog_nose
+                +-- dog_txtr        
+        +-- data_gen_afhq.py        
         +-- README.md
 +-- oxford
 ```
@@ -69,7 +72,7 @@ bash download.sh
 Execute Below
 
 ```
-python data_gen.py
+python data_gen_afhq.py
 ```
 
 # B3. Aug methods
@@ -79,30 +82,41 @@ There are four augmentations. Detailed explanation and the name of function are 
 
 ![](../assets/afhq/original.jpg) <br>
 
-## B3.1. grey
+## B3.1. grey 
   - func: to_grey() <br>
+ 
 ![](../assets/afhq/grey.jpg) <br>
 
 ## B3.2. edge
-  - 모양부분을 스케치로 그리는 듯 edge를 뽑아냈다.
+  - 모양부분 스케치 그리듯 edge
   - func: to_edge() <br>
 
 ![](../assets/afhq/edge.jpg) <br>
 
-## B3.3. part
-  - 눈 부분을 뽑았다. x(가로)방향으로는 xmin + 1/4h ~ xmax - 1/4h, y(세로)방향으로는 ymin + 5/12h ~ ymax - 5/12h를 추출하였다.
-  - 기존 이미지의 (w, h)를 갖도록 resize하였다.
-  - func: to_part() <br>
+## B3.3. txtr
+  - 동물의 피부 부분
+  - func: to_txtr() <br>
 
-![](../assets/afhq/part.jpg) <br>
+![](../assets/afhq/txtr.jpg) <br>
 
+## B3.4. ear
+  - 왼쪽 귀(왼쪽 추출 불가능 할 경우 오른쪽)
+  - func: to_ear() <br>
 
-## B3.4. txtr: Texture를 뽑는 과정
-  - 태비(털모양) 부분을 뽑기 위해 극히 제한적인 box를 그려 texture를 뽑아냈다.
-  - 기존 이미지의 (w, h)를 갖도록 resize하였다.
-  - func: to_txtr()  <br>
+![](../assets/afhq/ear.jpg) <br>
 
-!![](../assets/afhq/txtr.jpg) <br>
+## B3.5. eye
+  - 왼쪽 눈(왼쪽 추출 불가능 할 경우 오른쪽)
+  - func: to_eye() <br>
+
+![](../assets/afhq/eye.jpg) <br>
+
+## B3.5. nose
+  - 코
+  - func: to_nose() <br>
+
+![](../assets/afhq/nose.jpg) <br>
+
 
 # References
 Official: 
